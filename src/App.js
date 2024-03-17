@@ -21,7 +21,7 @@ function App() {
   const getCurrentLocation=()=>{
     navigator.geolocation.getCurrentPosition((position)=>{
       let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
+      let lon = position.coords.longitude; 
       getWeatherByCurrentLocation(lat, lon);
     });
   }
