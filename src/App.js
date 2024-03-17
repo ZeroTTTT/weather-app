@@ -22,7 +22,7 @@ function App() {
     navigator.geolocation.getCurrentPosition((position)=>{
       let lat = position.coords.latitude;
       let lon = position.coords.longitude;
-      getWeatherByCurrentLocation(lat,lon);
+      getWeatherByCurrentLocation(lat, lon);
     });
   }
 
