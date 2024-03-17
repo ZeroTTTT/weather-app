@@ -51,14 +51,14 @@ function App() {
 
   return (
     <div className='container'>
-      <ClipLoader
+      {/* <ClipLoader
         color=#f88c6b
         loading={loading}
         cssOverride={override}
         size={150}
         aria-label="Loading Spinner"
         data-testid="loader"
-      />
+      /> */}
       <WeatherBox weather={weather}/>
       <WeatherButton cities={cities} setCity={setCity}/>      
     </div>
