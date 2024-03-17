@@ -17,7 +17,17 @@ function App() {
 
   const [weather,setWeather]=useState(null);
   const [city,setCity] = useState('');
-  const cities=['paris', 'new york', 'tokyo', 'seoul']
+  const cities=['paris', 'new york', 'tokyo', 'seoul'];
+  const [loading,setLoading] = useState(false);
+
+  useEffect(()=>{
+    if(city==''){
+      getCurrentLocation()
+    }else{
+      getWeatherByCity()
+    }
+  }, [city]);
+
   const getCurrentLocation=()=>{
     navigator.geolocation.getCurrentPosition((position)=>{
       let lat = position.coords.latitude;
@@ -28,40 +38,36 @@ function App() {
 
  const getWeatherByCurrentLocation = async(lat,lon) => {
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c00b1fc64fff0edf5f491739184da656&units=metric`;
+  setLoading(true);
   let response = await fetch(url);
   let data = await response.json();
-  setWeather(data); 
-}
-
-  useEffect(()=>{
-    if(city==''){
-      getCurrentLocation()
-    }else{
-      getWeatherByCity()
-    }
-  }, [city]);
+  setWeather(data);
+  setLoading(false); 
+  }
 
   const getWeatherByCity= async()=>{
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c00b1fc64fff0edf5f491739184da656&units=metric`
+    setLoading(true);
     let response = await fetch(url);
     let data = await response.json()
     setWeather(data);
+    setLoading(false);
   }
 
 
   return (
-    <div className='container'>
-      {/* <ClipLoader
-        color=#f88c6b
-        loading={loading}
-        cssOverride={override}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      /> */}
-      <WeatherBox weather={weather}/>
-      <WeatherButton cities={cities} setCity={setCity}/>      
-    </div>
+    <div>
+      {loading ?(
+        <div className='container'>        
+          <ClipLoader color="#ff88c6b" loading={loading} size={150}/>
+        </div>
+      ) : (
+        <div className='container'>        
+        <WeatherBox weather={weather}/>
+        <WeatherButton cities={cities} setCity={setCity}/>      
+      </div>
+      )}      
+    </div>    
   );
 }
 

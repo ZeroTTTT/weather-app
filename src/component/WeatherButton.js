@@ -7,11 +7,11 @@ const WeatherButton = ({cities,setCity}) => {
         <Button variant="warning">Current Location</Button>
         { cities.map((item, index) => (
             <Button 
-              variant='warning'
-              key={index}
+              variant='warning' 
+              key={index} 
               onClick={()=>setCity(item)} 
             >
-                {item}
+              {item}
             </Button>
         ))}
     </div>
